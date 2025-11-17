@@ -1,25 +1,28 @@
 import streamlit as st
 
-# ---- Title ----
-st.title("Week 6 - Linking Input & Output Components")
+# ---- Week 3: Prediction Function (Fake Example) ----
+def predict(image):
+    # Use your real model later
+    return "Dog", 0.87  
 
-st.write("This demo shows how input components connect to a prediction function.")
 
-# ---- Input Component ----
-user_input = st.text_input("Enter any text:")
+# ---- Week 4: Input Components ----
+st.title("Week 6 - Link Components with Prediction Function")
+st.write("Upload an image and get the model prediction.")
 
-# ---- Prediction Function (Fake) ----
-def predict(text):
-    if text.strip() == "":
-        return "No input", 0.0
-    return "Sample Prediction", 0.85   # fake output
+uploaded_image = st.file_uploader("Upload an image", type=["jpg", "png", "jpeg"])
 
-# ---- Connect input → function → output ----
-if st.button("Predict"):
-    prediction, confidence = predict(user_input)
 
-    st.subheader("Prediction Result")
-    st.success(f"Predicted Class: {prediction}")
+# ---- Week 5: Output Components ----
+if uploaded_image is not None:
+    st.image(uploaded_image, caption="Uploaded Image", width=250)
 
-    st.subheader("Confidence")
-    st.write(f"{confidence * 100:.2f}%")
+    if st.button("Predict"):
+        label, confidence = predict(uploaded_image)
+
+        st.subheader("Prediction Result")
+        st.success(f"Predicted Class: {label}")
+
+        st.subheader("Confidence Score")
+        st.write(f"{confidence*100:.2f}%")
+
