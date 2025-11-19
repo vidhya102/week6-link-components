@@ -1,28 +1,35 @@
 import streamlit as st
+from PIL import Image
+import numpy as np
 
-# ---- Week 3: Prediction Function (Fake Example) ----
-def predict(image):
-    # Use your real model later
-    return "Dog", 0.87  
+st.set_page_config(page_title="Handwritten Digit Predictor", layout="centered")
 
+# ----------- HEADER -------------
+st.title("🧮 Handwritten Digit Classifier (Demo)")
+st.write("Upload an image of a handwritten digit (0–9) to test the model.")
 
-# ---- Week 4: Input Components ----
-st.title("Week 6 - Link Components with Prediction Function")
-st.write("Upload an image and get the model prediction.")
+st.divider()
 
-uploaded_image = st.file_uploader("Upload an image", type=["jpg", "png", "jpeg"])
+# ----------- IMAGE UPLOAD -------------
+uploaded_file = st.file_uploader("📤 Upload an image", type=["jpg", "png", "jpeg"])
 
+if uploaded_file:
+    img = Image.open(uploaded_file)
+    st.image(img, caption="Uploaded Image", width=250)
 
-# ---- Week 5: Output Components ----
-if uploaded_image is not None:
-    st.image(uploaded_image, caption="Uploaded Image", width=250)
+    st.divider()
 
     if st.button("Predict"):
-        label, confidence = predict(uploaded_image)
+        with st.spinner("Analyzing the image..."):
+            # FAKE result for Week 7 (dummy output)
+            predicted_class = "Dog"
+            confidence = 87.0
 
-        st.subheader("Prediction Result")
-        st.success(f"Predicted Class: {label}")
+        st.success(f"Predicted Class: **{predicted_class}**")
+        st.metric("Confidence Score", f"{confidence}%")
 
-        st.subheader("Confidence Score")
-        st.write(f"{confidence*100:.2f}%")
+else:
+    st.info("Please upload an image to begin.")
 
+st.write("---")
+st.caption("Week 7 – UI Refinement & Deployment Task | DIY Internship")
