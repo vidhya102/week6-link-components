@@ -1,6 +1,7 @@
 import streamlit as st
 import numpy as np
 from PIL import Image, ImageOps
+from tensorflow.keras.models import load_model
 
 # Page settings
 st.set_page_config(page_title="Handwritten Digit Predictor", layout="centered")
